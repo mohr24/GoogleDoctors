@@ -42,12 +42,20 @@ sub getNameFromTree {
     my $path = shift;
     my $nameSection = $tree->look_down('id', 'physician-name-h1');
 
-    if (!$nameSection) {
+     if (!$nameSection) {
 	# Try another type of page
 	my $lastName = $tree->look_down('class', 'family-name');
 	my $firstName = $tree->look_down('class', 'given-name');
 	if ($firstName && $lastName) {
 	    return $firstName->as_text(), $lastName->as_text();
+	}
+	else{
+		$nameSection = $tree->look_down('itemprop', 'name');
+		if($nameSection){
+		    my $fullName = $nameSection->as_text();
+		    $fullName =~ s/^\s*Dr\.\s*//;
+		    return ParserCommon::parseName($fullName);
+		}
 	}
 	print STDERR "Bad health grades page $path\n";
 	return "--", "--";
