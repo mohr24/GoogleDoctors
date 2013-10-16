@@ -120,10 +120,10 @@ sub getRatingFromTree {
 	 if($starElement){
 	     my $text = $starElement->as_text;
 	     $text =~ m/Currently (\d(\.\d)?) of 4 stars/i;
-	     $rating = $1;
+	     if($text){$rating = $1;}
 	     $countElement = $starElement->look_down('class', 'count');
 	     $text =~ m/\((\d)\)/i;
-	     $ratingCount = $1;
+	     if($text){$ratingCount = $1;}
 	 }
     }
 	# # There is another type of vitals page that doesn't have review_section.
