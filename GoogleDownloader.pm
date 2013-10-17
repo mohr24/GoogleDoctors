@@ -70,7 +70,7 @@ sub downloadPage {
     my $url = shift;
     my $outfile = shift;
 
-    my $mech = new WWW::Mechanize;
+    my $mech = WWW::Mechanize->new (timeout=>20);
     eval {
 	$mech->get($url);
 	# for healthgrades, vitals, and ucompare changes url to page with more extensive ratings
@@ -212,6 +212,7 @@ sub readCSV {
 		@columnNames = $csv->fields();
 		for (my $i = 0; $i < scalar(@columnNames); $i++) {
 		    $columnNames[$i] = lc($columnNames[$i]);
+		    $columnNames[$i] =~ tr/ //ds;
 		}
 	
 		for (my $i = 1; $i < scalar(@lines); $i++) {
