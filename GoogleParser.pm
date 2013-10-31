@@ -54,7 +54,7 @@ sub parse {
     my $path = shift;
     my (%sponsoredCounts, %normalCounts); # docId -> count
     my $totalCount = 0;
-    if ($path =~ m/(\w+\d+)\.(\d+)\.html/) {
+    if ($path =~ m/(\w*\d+)\.(\d+)\.html/) {
 	my $docId = $1;
 	my $page = $2;
 	
