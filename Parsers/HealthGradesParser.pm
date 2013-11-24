@@ -80,9 +80,15 @@ sub getRatingFromTree {
 	if ($ratingElemInner){
 	    $rating = $ratingElemInner->as_text();
 	}
-	my $ratingElemInner = $tree->look_down('class',"");
+	$ratingElemInner = $tree->look_down('class','');
 	if ($ratingElemInner){
 	    $ratingCount = $ratingElemInner->as_text();
+	}
+	else{
+	    $ratingElemInner = $tree->look_down('itemprop','reviewCount');
+	    if ($ratingElemInner){
+		$ratingCount = $ratingElemInner->as_text();
+	    }
 	}
     }
     
